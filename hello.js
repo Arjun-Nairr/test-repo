@@ -2,6 +2,7 @@
 'use strict';
 
 const USAGE = 'Usage: node hello.js [--name VALUE]';
+const LINE_BREAK_PATTERN = /[\r\n\u2028\u2029]/;
 
 function resolveName(args) {
   if (args.length === 0) return 'World';
@@ -14,7 +15,7 @@ function resolveName(args) {
   if (value.startsWith('--')) {
     throw new Error(`Missing value for --name. ${USAGE}`);
   }
-  if (/[\r\n]/.test(value)) {
+  if (LINE_BREAK_PATTERN.test(value)) {
     throw new Error(`--name must not contain line breaks. ${USAGE}`);
   }
 

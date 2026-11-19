@@ -57,6 +57,14 @@ test('embedded carriage return is rejected', () => {
   assertRejected(['--name', 'Ada\rEvil']);
 });
 
+test('embedded Unicode line separator (U+2028) is rejected', () => {
+  assertRejected(['--name', `Ada${String.fromCodePoint(0x2028)}Evil`]);
+});
+
+test('embedded Unicode paragraph separator (U+2029) is rejected', () => {
+  assertRejected(['--name', `Ada${String.fromCodePoint(0x2029)}Evil`]);
+});
+
 test('bare --name without a value is rejected', () => {
   assertRejected(['--name']);
 });
